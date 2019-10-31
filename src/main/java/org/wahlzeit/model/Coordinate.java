@@ -4,6 +4,7 @@ public class Coordinate {
 	private double x;
 	private double y;
 	private double z;
+	private final double decimalPlace = 1E-5;
 
 	public double getX() {
 		return x;
@@ -43,6 +44,18 @@ public class Coordinate {
 		double distance = Math.sqrt(resultX + resultY + resultZ);
 		return distance;
 	}
+
+	private boolean isEqual(Coordinate coordinate) {
+
+		boolean xIsEquals = compNumbers(this.getX(),coordinate.getX());
+		boolean yIsEquals = compNumbers(this.getY(), coordinate.getY());
+		boolean zIsEquals = compNumbers(this.getZ(), coordinate.getZ());
+
+		return xIsEquals && yIsEquals && zIsEquals;
+	}
+	private boolean compNumbers(double x, double y) {
+		return Math.abs(x - y) < decimalPlace;
+	}
 	
 	@Override
 	public boolean equals(Object obj) {
@@ -52,12 +65,18 @@ public class Coordinate {
 			return false;
 		}
 	}
-	private boolean isEqual(Coordinate coordinate) {
-
-		boolean result = false;
-		if (this.getX() == coordinate.getX() && this.getY() == coordinate.getY() && this.getZ() == coordinate.getZ()) {
-			result = true;
-		}
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		long temp;
+		temp = Double.doubleToLongBits(x);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		temp = Double.doubleToLongBits(y);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		temp = Double.doubleToLongBits(z);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
 		return result;
 	}
+
 }
