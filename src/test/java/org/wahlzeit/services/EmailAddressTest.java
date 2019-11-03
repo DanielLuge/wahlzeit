@@ -20,12 +20,26 @@
 
 package org.wahlzeit.services;
 
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
+
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+
 import junit.framework.TestCase;
 
 /**
  * Test cases for the EmailAddress class.
  */
 public class EmailAddressTest extends TestCase {
+	private String addressName1 = "bingo@bongo";
+	private String addressName2 = "bango@bongo";
+	private String addressName3 = "bingo@bongo";
+
+	private EmailAddress address1 = EmailAddress.doGetFromString(addressName1);
+	private EmailAddress address2 = EmailAddress.doGetFromString(addressName2);
+	private EmailAddress address3 = EmailAddress.doGetFromString(addressName3);
 
 	/**
 	 *
@@ -34,17 +48,62 @@ public class EmailAddressTest extends TestCase {
 		super(name);
 	}
 
+//	@Before
+//	public void setUp() {
+//		addressName1 = "bingo@bongo";
+//		addressName2 = "bango@bongo";
+//		addressName3 = "bingo@bongo";
+//
+//		address1 = EmailAddress.doGetFromString(addressName1);
+//		address2 = EmailAddress.doGetFromString(addressName2);
+//		address3 = EmailAddress.doGetFromString(addressName3);
+//
+//	}
+//	@After
+//	public void tearDown() {
+//		
+//	}
+//	
+
 	/**
 	 *
 	 */
 	public void testGetEmailAddressFromString() {
-		// invalid email addresses are allowed for local testing and online avoided by Google
+		// invalid email addresses are allowed for local testing and online avoided by
+		// Google
 
 		assertTrue(createEmailAddressIgnoreException("bingo@bongo"));
 		assertTrue(createEmailAddressIgnoreException("bingo@bongo.com"));
 		assertTrue(createEmailAddressIgnoreException("bingo.bongo@bongo.com"));
 		assertTrue(createEmailAddressIgnoreException("bingo+bongo@bango"));
 	}
+
+//	@Test
+//	public void testDoGetFromStringIsNull() {
+//		EmailAddress nullAddress = null;
+//		assertNull(nullAddress.doGetFromString(null));
+//	}
+
+	@Test
+	public void testEmailEquals() {
+
+		assertTrue(address1.isEqual(address3));
+		assertFalse(address1.isEqual(address2));
+	}
+
+	@Test
+	public void testStringConversion() {
+
+		assertTrue(address1.asString() == addressName1);
+	}
+
+	@Test
+	public void testValidInternetAddressConversion() {
+
+		InternetAddress internetAddress1 = address1.asInternetAddress();
+		assertNotNull(internetAddress1.getAddress());
+	}
+
 
 	/**
 	 *
@@ -62,9 +121,11 @@ public class EmailAddressTest extends TestCase {
 	/**
 	 *
 	 */
-	public void testEmptyEmailAddress() {
+	public void testEmptyEmailAddressIsUnvalid() {
 		assertFalse(EmailAddress.EMPTY.isValid());
+	}
+	public void testEmptyEmailAddressIsValid() {
+		assertTrue(address1.isValid());
 	}
 
 }
-
