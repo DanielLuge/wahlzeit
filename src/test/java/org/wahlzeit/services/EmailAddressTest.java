@@ -33,13 +33,7 @@ import junit.framework.TestCase;
  * Test cases for the EmailAddress class.
  */
 public class EmailAddressTest extends TestCase {
-	private String addressName1 = "bingo@bongo";
-	private String addressName2 = "bango@bongo";
-	private String addressName3 = "bingo@bongo";
 
-	private EmailAddress address1 = EmailAddress.doGetFromString(addressName1);
-	private EmailAddress address2 = EmailAddress.doGetFromString(addressName2);
-	private EmailAddress address3 = EmailAddress.doGetFromString(addressName3);
 
 	/**
 	 *
@@ -48,22 +42,6 @@ public class EmailAddressTest extends TestCase {
 		super(name);
 	}
 
-//	@Before
-//	public void setUp() {
-//		addressName1 = "bingo@bongo";
-//		addressName2 = "bango@bongo";
-//		addressName3 = "bingo@bongo";
-//
-//		address1 = EmailAddress.doGetFromString(addressName1);
-//		address2 = EmailAddress.doGetFromString(addressName2);
-//		address3 = EmailAddress.doGetFromString(addressName3);
-//
-//	}
-//	@After
-//	public void tearDown() {
-//		
-//	}
-//	
 
 	/**
 	 *
@@ -78,28 +56,34 @@ public class EmailAddressTest extends TestCase {
 		assertTrue(createEmailAddressIgnoreException("bingo+bongo@bango"));
 	}
 
-//	@Test
-//	public void testDoGetFromStringIsNull() {
-//		EmailAddress nullAddress = null;
-//		assertNull(nullAddress.doGetFromString(null));
-//	}
 
 	@Test
 	public void testEmailEquals() {
+		 String addressName1 = "bingo@bongo";
+		 String addressName2 = "bango@bongo";
+		 String addressName3 = "bingo@bongo";
 
+		 EmailAddress address1 = EmailAddress.doGetFromString(addressName1);
+		 EmailAddress address2 = EmailAddress.doGetFromString(addressName2);
+		 EmailAddress address3 = EmailAddress.doGetFromString(addressName3);
+		
 		assertTrue(address1.isEqual(address3));
 		assertFalse(address1.isEqual(address2));
 	}
 
 	@Test
 	public void testStringConversion() {
-
+		 String addressName1 = "bingo@bongo";
+		 EmailAddress address1 = EmailAddress.doGetFromString(addressName1);
+		 
 		assertTrue(address1.asString() == addressName1);
 	}
 
 	@Test
 	public void testValidInternetAddressConversion() {
-
+		 String addressName1 = "bingo@bongo";
+		 EmailAddress address1 = EmailAddress.doGetFromString(addressName1);
+		 
 		InternetAddress internetAddress1 = address1.asInternetAddress();
 		assertNotNull(internetAddress1.getAddress());
 	}
@@ -121,10 +105,13 @@ public class EmailAddressTest extends TestCase {
 	/**
 	 *
 	 */
-	public void testEmptyEmailAddressIsUnvalid() {
+	public void testEmptyEmailAddressIsInvalid() {
 		assertFalse(EmailAddress.EMPTY.isValid());
 	}
 	public void testEmptyEmailAddressIsValid() {
+		 String addressName1 = "bingo@bongo";
+		 EmailAddress address1 = EmailAddress.doGetFromString(addressName1);
+		 
 		assertTrue(address1.isValid());
 	}
 
