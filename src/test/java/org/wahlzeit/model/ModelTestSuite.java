@@ -14,7 +14,8 @@ import org.junit.runners.Suite;
 		PhotoFilterTest.class,
 		TagsTest.class,
 		UserStatusTest.class,
-		ValueTest.class
+		ValueTest.class,
+		SwimmingPhotoFactoryTest.class
 
 })
 public class ModelTestSuite {
