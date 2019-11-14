@@ -6,41 +6,32 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
 
-import org.apache.tools.ant.types.resources.selectors.InstanceOf;
-import org.eclipse.jetty.util.ssl.SslContextFactory.Server;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.ClassRule;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.RuleChain;
 import org.junit.rules.TestRule;
-import org.wahlzeit.handlers.WebFormHandler;
 import org.wahlzeit.testEnvironmentProvider.LocalDatastoreServiceTestConfigProvider;
 import org.wahlzeit.testEnvironmentProvider.RegisteredOfyEnvironmentProvider;
 import org.wahlzeit.testEnvironmentProvider.SysConfigProvider;
 import org.wahlzeit.testEnvironmentProvider.UserSessionProvider;
 import org.wahlzeit.testEnvironmentProvider.WebFormHandlerProvider;
 
-import com.google.appengine.api.datastore.DatastoreService;
-import com.google.appengine.api.datastore.DatastoreServiceFactory;
-import com.google.appengine.tools.development.testing.LocalDatastoreServiceTestConfig;
-import com.google.appengine.api.datastore.Entity;
-import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
-import com.google.appengine.tools.development.testing.LocalUserServiceTestConfig;
-import com.googlecode.objectify.ObjectifyService;
-import com.googlecode.objectify.util.Closeable;
 
+@SuppressWarnings("deprecation")
 public class SwimmingPhotoFactoryTest {
 
-	@ClassRule
-	public static SysConfigProvider sysConfigProvider = new SysConfigProvider();
-	@ClassRule
-	public static WebFormHandlerProvider webFormHandlerProvider = new WebFormHandlerProvider();
+	   @ClassRule
+	    public static SysConfigProvider sysConfigProvider = new SysConfigProvider();
+	    @ClassRule
+	    public static WebFormHandlerProvider webFormHandlerProvider = new WebFormHandlerProvider();
 
-	@Rule
-	public TestRule chain = RuleChain.outerRule(new LocalDatastoreServiceTestConfigProvider())
-			.around(new RegisteredOfyEnvironmentProvider()).around(new UserSessionProvider());
+	    @Rule
+	    public TestRule chain = RuleChain.
+	            outerRule(new LocalDatastoreServiceTestConfigProvider()).
+	            around(new RegisteredOfyEnvironmentProvider()).
+	            around(new UserSessionProvider());
+
 
 	@Test
 	public void createSwimmingPhoto() {

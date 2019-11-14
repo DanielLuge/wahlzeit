@@ -1,6 +1,8 @@
 package org.wahlzeit.model;
 
+import com.googlecode.objectify.annotation.Entity;
 
+@Entity
 public class SwimmingPhoto extends Photo {
 
 	public String swimmStroke;
@@ -10,15 +12,14 @@ public class SwimmingPhoto extends Photo {
 	 * @methodtype constructor
 	 */
 	public SwimmingPhoto() {
-		id = PhotoId.getNextId();
-		incWriteCount();
+	super();
 	}
 	
 	/**
 	 * @methodtype constructor with id
 	 */
 	public SwimmingPhoto (PhotoId myId) {
-		id = myId;
+		super(myId);
 
 		incWriteCount();
 	}

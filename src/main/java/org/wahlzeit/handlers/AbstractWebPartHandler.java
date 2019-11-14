@@ -24,7 +24,7 @@ import org.wahlzeit.model.AccessRights;
 import org.wahlzeit.model.Client;
 import org.wahlzeit.model.ModelConfig;
 import org.wahlzeit.model.Photo;
-import org.wahlzeit.model.PhotoManager;
+import org.wahlzeit.model.SwimmingPhotoManager;
 import org.wahlzeit.model.PhotoSize;
 import org.wahlzeit.model.User;
 import org.wahlzeit.model.UserSession;
@@ -145,7 +145,7 @@ public abstract class AbstractWebPartHandler implements WebPartHandler {
 	 */
 	protected boolean isSavedPhotoVisible(UserSession us) {
 		String id = us.getAsString(us.getSavedArgs(), Photo.ID);
-		Photo photo = PhotoManager.getInstance().getPhoto(id);
+		Photo photo = SwimmingPhotoManager.getInstance().getPhoto(id);
 		return photo.isVisible();
 	}
 
