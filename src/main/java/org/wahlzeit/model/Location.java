@@ -2,9 +2,9 @@ package org.wahlzeit.model;
 
 public class Location {
 
-	public Coordinate coordinate;
+	public CartesianCoordinate coordinate;
 	
-	public Location(Coordinate coordinate) {
+	public Location(CartesianCoordinate coordinate) {
 		this.coordinate = coordinate;
 	}
 }
