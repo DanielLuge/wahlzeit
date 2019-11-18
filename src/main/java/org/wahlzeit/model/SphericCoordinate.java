@@ -86,8 +86,8 @@ public class SphericCoordinate implements Coordinate {
 	}
 	@Override
 	public boolean equals(Object obj) {
-		if (obj instanceof SphericCoordinate) {
-			return isEqual((SphericCoordinate) obj);
+		if (obj instanceof Coordinate) {
+			return isEqual((Coordinate) obj);
 		} else {
 			return false;
 		}

@@ -62,8 +62,8 @@ public class CartesianCoordinate implements Coordinate {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (obj instanceof CartesianCoordinate) {
-			return isEqual((CartesianCoordinate) obj);
+		if (obj instanceof Coordinate) {
+			return isEqual((Coordinate) obj);
 		} else {
 			return false;
 		}

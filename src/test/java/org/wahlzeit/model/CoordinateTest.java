@@ -27,6 +27,9 @@ public class CoordinateTest {
 	public void finalize() {
 		cartesianCoordinate1 = null;
 		cartesianCoordinate2 = null;
+		
+		sphericCoordinate1 = null;
+		sphericCoordinate2 = null;
 	}
 
 	@Test
@@ -126,8 +129,13 @@ public class CoordinateTest {
 		assertFalse(sphericCoordinate1.isEqual(sphericCoordinate2));
 	}
 	@Test
-	public void testIsEqualInterchangeability() {
+	public void testSphericIsEqualInterchangeability() {
 		cartesianCoordinate1 = sphericCoordinate1.asCastesianCoordinate();
 		assertTrue(cartesianCoordinate1.isEqual(sphericCoordinate1));
+	}
+	@Test
+	public void testCartesianIsEqualInterchangeability() {
+		sphericCoordinate1 = cartesianCoordinate1.asSphericCoordinate();
+		assertTrue(sphericCoordinate1.isEqual(cartesianCoordinate1));
 	}
 }
