@@ -9,6 +9,7 @@ import org.junit.Test;
 
 public class CoordinateTest {
 	private final double decimalPlace = 1E-5;
+
 	private CartesianCoordinate cartesianCoordinate1;
 	private CartesianCoordinate cartesianCoordinate2;
 	private SphericCoordinate sphericCoordinate1;
