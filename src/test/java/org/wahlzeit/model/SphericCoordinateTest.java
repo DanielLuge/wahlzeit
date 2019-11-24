@@ -68,9 +68,4 @@ public class SphericCoordinateTest {
 
 		assertFalse(sphericCoordinate1.isEqual(sphericCoordinate2));
 	}
-	@Test
-	public void testSphericIsEqualInterchangeability() {
-		cartesianCoordinate1 = sphericCoordinate1.asCastesianCoordinate();
-		assertTrue(cartesianCoordinate1.isEqual(sphericCoordinate1));
-	}
 }

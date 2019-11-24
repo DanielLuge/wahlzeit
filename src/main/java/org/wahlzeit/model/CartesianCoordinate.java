@@ -49,37 +49,4 @@ public class CartesianCoordinate extends AbstractCoordinate {
 		return new SphericCoordinate(phi, theta, radius);
 	}
 
-	public boolean isEqual(Coordinate coordinate) {
-		CartesianCoordinate cartesianCoordinate = coordinate.asCastesianCoordinate();
-
-		boolean xIsEquals = compNumbers(getX(), (cartesianCoordinate.getX()));
-		boolean yIsEquals = compNumbers(getY(), (cartesianCoordinate.getY()));
-		boolean zIsEquals = compNumbers(getZ(), (cartesianCoordinate.getZ()));
-
-		return xIsEquals && yIsEquals && zIsEquals;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (obj instanceof Coordinate) {
-			return isEqual((Coordinate) obj);
-		} else {
-			return false;
-		}
-	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		long temp;
-		temp = Double.doubleToLongBits(x);
-		result = prime * result + (int) (temp ^ (temp >>> 32));
-		temp = Double.doubleToLongBits(y);
-		result = prime * result + (int) (temp ^ (temp >>> 32));
-		temp = Double.doubleToLongBits(z);
-		result = prime * result + (int) (temp ^ (temp >>> 32));
-		return result;
-	}
-
 }
