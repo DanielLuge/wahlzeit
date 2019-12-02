@@ -1,18 +1,34 @@
 package org.wahlzeit.model;
 
+/**
+ * @invariant 0<= radius, 0<=theta <=180, 0<=phi<=180 || (x, y, z) !=Double.NaN
+ */
 public abstract class AbstractCoordinate implements Coordinate {
 	private final double decimalPlace = 1E-5;
 
 	@Override
 	public double getCentralAngle(Coordinate coordinate) {
-
+		assertClassInvariants();
 		SphericCoordinate sphericCoordinate = coordinate.asSphericCoordinate();
 		SphericCoordinate sphericCoordinateCaller = this.asSphericCoordinate();
+
 		double centralAngle = doGetCentralAngle(sphericCoordinate, sphericCoordinateCaller);
+
+		assertIsValidAngle(centralAngle);
+		assertClassInvariants();
 
 		return centralAngle;
 	}
 
+	private void assertIsValidAngle(double centralAngle) {
+		assert centralAngle >= Math.toRadians(0);
+		assert centralAngle <= 2 * Math.PI;
+	}
+
+	/**
+	 * @pre caller and call: 0<= radius, 0<=theta <=180, 0<=phi<=180
+	 * @post 0 <= return <= 2 * Math.PI
+	 */
 	protected double doGetCentralAngle(SphericCoordinate caller, SphericCoordinate call) {
 
 		double sinTheta1 = Math.sin(caller.getTheta());
@@ -31,11 +47,30 @@ public abstract class AbstractCoordinate implements Coordinate {
 
 	@Override
 	public double getCartesianDistance(Coordinate coordinate) {
+		assertClassInvariants();
+
 		CartesianCoordinate cartesianCoordinateCaller = this.asCastesianCoordinate();
 		CartesianCoordinate cartesianCoordinateCall = coordinate.asCastesianCoordinate();
+
+		cartesianCoordinateCaller.assertIsValidCoordinate();
+		cartesianCoordinateCall.assertIsValidCoordinate();
+
 		double cartesianDistance = doGetCartesianDistance(cartesianCoordinateCall, cartesianCoordinateCaller);
+
+		assertIsValidDistance(cartesianDistance);
+		assertClassInvariants();
+
 		return cartesianDistance;
 	}
+
+	private void assertIsValidDistance(double cartesianDistance) {
+		assert cartesianDistance >= 0;
+	}
+
+	/**
+	 * @pre x, y, z!= Double.NaN
+	 * @post 0 <= return
+	 */
 
 	private double doGetCartesianDistance(CartesianCoordinate caller, CartesianCoordinate call) {
 		double resultX = Math.pow((caller.getX() - call.getX()), 2);
@@ -48,6 +83,7 @@ public abstract class AbstractCoordinate implements Coordinate {
 
 	@Override
 	public boolean isEqual(Coordinate coordinate) {
+
 		SphericCoordinate sphericCoordinateCaller = this.asSphericCoordinate();
 		SphericCoordinate sphericCoordinateCall = coordinate.asSphericCoordinate();
 
@@ -58,14 +94,23 @@ public abstract class AbstractCoordinate implements Coordinate {
 		return thetaIsEquals && phiIsEquals && radiusIsEquals;
 	}
 
+	protected abstract void assertClassInvariants();
+
+	protected abstract void assertIsValidCoordinate();
+
 	@Override
 	public boolean equals(Object obj) {
+
 		if (obj instanceof Coordinate) {
+			assertClassInvariants();
+
 			return isEqual((Coordinate) obj);
+
 		} else {
 			return false;
 		}
 	}
+
 	@Override
 	public int hashCode() {
 		SphericCoordinate sphericCoordinateCaller = this.asSphericCoordinate();

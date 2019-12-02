@@ -1,5 +1,6 @@
 package org.wahlzeit.model;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
@@ -20,8 +21,8 @@ public class CartesianCoordinateTest {
 		cartesianCoordinate1 = new CartesianCoordinate(10, 10, 10);
 		cartesianCoordinate2 = new CartesianCoordinate(5, 5, 5);
 
-		sphericCoordinate1 = new SphericCoordinate(10, 10, 6360);
-		sphericCoordinate2 = new SphericCoordinate(50, 50, 6360);
+		sphericCoordinate1 = new SphericCoordinate(Math.toRadians(10), Math.toRadians(10), 6360);
+		sphericCoordinate2 = new SphericCoordinate(Math.toRadians(50),Math.toRadians(50) , 6360);
 	}
 
 	@After
@@ -68,9 +69,9 @@ public class CartesianCoordinateTest {
 	}
 
 	@Test
-	public void testCartesianAndSphericCoordinateIsEqualIsTrue() {
+	public void testCartesianAndSphericCoordinateEqualsIsTrue() {
 		SphericCoordinate sphericCoordinate = cartesianCoordinate2.asSphericCoordinate();
-		assertTrue(cartesianCoordinate2.isEqual(sphericCoordinate));
+		assertTrue(cartesianCoordinate2.equals(sphericCoordinate));
 	}
 
 	@Test
@@ -101,10 +102,14 @@ public class CartesianCoordinateTest {
 	private boolean compNumbers(double x, double y) {
 		return Math.abs(x - y) < decimalPlace;
 	}
+	@Test
+	public void testAsCartesianDistance() {
+		assertTrue(cartesianCoordinate1.equals(cartesianCoordinate1.asCastesianCoordinate()));
+	}
 
 	@Test
-	public void testCartesianIsEqualInterchangeability() {
+	public void testCartesianEqualsInterchangeability() {
 		sphericCoordinate1 = cartesianCoordinate1.asSphericCoordinate();
-		assertTrue(sphericCoordinate1.isEqual(cartesianCoordinate1));
+		assertTrue(sphericCoordinate1.equals(cartesianCoordinate1));
 	}
 }
