@@ -12,30 +12,19 @@ public class CartesianCoordinate extends AbstractCoordinate {
 		return x;
 	}
 
-	public void setX(double x) {
-		this.x = x;
-	}
-
 	public double getY() {
 		return y;
-	}
-
-	public void setY(double y) {
-		this.y = y;
 	}
 
 	public double getZ() {
 		return z;
 	}
 
-	public void setZ(double z) {
-		this.z = z;
-	}
-
 	public CartesianCoordinate(double x, double y, double z) {
 		this.x = x;
 		this.y = y;
 		this.z = z;
+		assertClassInvariants();
 	}
 
 	@Override
@@ -68,18 +57,29 @@ public class CartesianCoordinate extends AbstractCoordinate {
 	}
 
 	@Override
-	protected void assertClassInvariants() {
-		assert Double.isNaN(x) == false;
-		assert Double.isNaN(x) == false;
-		assert Double.isNaN(z) == false;
+	protected void assertClassInvariants() throws IllegalStateException {
+		doAssertClassCoordinate(this);
 
 	}
 
 	@Override
 	protected void assertIsValidCoordinate() {
-		assert Double.isNaN(x) == false;
-		assert Double.isNaN(y) == false;
-		assert Double.isNaN(z) == false;
+		doAssertClassCoordinate(this);
+
+	}
+
+	private void doAssertClassCoordinate(CartesianCoordinate coordinate) {
+		if (Double.isNaN(coordinate.x)) {
+			throw new IllegalStateException("x is not a number");
+		}
+		if (Double.isNaN(coordinate.y)) {
+
+			throw new IllegalStateException("x is not a number");
+		}
+		if (Double.isNaN(coordinate.z)) {
+
+			throw new IllegalStateException("x is not a number");
+		}
 	}
 
 }

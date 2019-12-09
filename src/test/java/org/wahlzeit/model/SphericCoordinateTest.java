@@ -27,30 +27,28 @@ public class SphericCoordinateTest {
 	public void finalize() {
 		cartesianCoordinate1 = null;
 		cartesianCoordinate2 = null;
-		
+
 		sphericCoordinate1 = null;
 		sphericCoordinate2 = null;
 	}
 
-	
 	@Test
 	public void testConvertTwoWayConversion() {
-		
+
 		sphericCoordinate2 = cartesianCoordinate1.asSphericCoordinate();
 		cartesianCoordinate1 = sphericCoordinate2.asCastesianCoordinate();
 		assertTrue(cartesianCoordinate1.equals(cartesianCoordinate1));
 	}
 
-	
 	@Test
 	public void testGreatCentralAngle() {
 		sphericCoordinate1 = new SphericCoordinate(Math.toRadians(10), Math.toRadians(10), 6360);
 		sphericCoordinate2 = new SphericCoordinate(Math.toRadians(50), Math.toRadians(50), 6360);
-		
+
 		double centralAngle = sphericCoordinate1.getCentralAngle(sphericCoordinate2);
 		assertTrue(compNumbers(centralAngle, 0.904669));
-	} 
-
+	}
+	
 	private boolean compNumbers(double x, double y) {
 		return Math.abs(x - y) < decimalPlace;
 	}
@@ -58,7 +56,8 @@ public class SphericCoordinateTest {
 	@Test
 	public void testSphericCoordinateIsEqualIsTrue() {
 
-		sphericCoordinate2 = new SphericCoordinate(sphericCoordinate1.getPhi(), sphericCoordinate1.getTheta(), sphericCoordinate1.getRadius());
+		sphericCoordinate2 = new SphericCoordinate(sphericCoordinate1.getPhi(), sphericCoordinate1.getTheta(),
+				sphericCoordinate1.getRadius());
 		assertTrue(sphericCoordinate1.equals(sphericCoordinate2));
 	}
 
@@ -67,10 +66,11 @@ public class SphericCoordinateTest {
 
 		assertFalse(sphericCoordinate1.equals(sphericCoordinate2));
 	}
+
 	@Test
 	public void testSpericCoordinatesEqualsisInterchangeability() {
-		CartesianCoordinate c  = sphericCoordinate1.asCastesianCoordinate();
+		CartesianCoordinate c = sphericCoordinate1.asCastesianCoordinate();
 		assertTrue(sphericCoordinate1.equals(c));
 	}
-		
+
 }

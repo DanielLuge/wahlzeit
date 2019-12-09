@@ -24,6 +24,10 @@ public class SwimmingPhotoFactory extends PhotoFactory {
 		return new SwimmingPhoto(id);
 	}
 
+	public SwimmingPhoto createPhoto(String swimStroke, String swimmingPoolName) {
+		return new SwimmingPhoto(swimStroke, swimmingPoolName);
+	}
+
 	protected SwimmingPhotoFactory() {
 		// do nothing
 	}
@@ -43,8 +47,8 @@ public class SwimmingPhotoFactory extends PhotoFactory {
 			log.config(LogBuilder.createSystemMessage().addAction("setting generic SwimmingPhotoFactory").toString());
 			setInstance(new SwimmingPhotoFactory());
 		}
-
 		return instance;
+
 	}
 
 	/**

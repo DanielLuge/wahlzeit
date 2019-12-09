@@ -6,6 +6,10 @@ package org.wahlzeit.model;
 public abstract class AbstractCoordinate implements Coordinate {
 	private final double decimalPlace = 1E-5;
 
+	protected abstract void assertClassInvariants();
+
+	protected abstract void assertIsValidCoordinate();
+
 	@Override
 	public double getCentralAngle(Coordinate coordinate) {
 		assertClassInvariants();
@@ -20,9 +24,10 @@ public abstract class AbstractCoordinate implements Coordinate {
 		return centralAngle;
 	}
 
-	private void assertIsValidAngle(double centralAngle) {
-		assert centralAngle >= Math.toRadians(0);
-		assert centralAngle <= 2 * Math.PI;
+	private void assertIsValidAngle(double centralAngle) throws IllegalArgumentException {
+		if (!(centralAngle >= Math.toRadians(0)) && !(centralAngle <= 2 * Math.PI)) {
+			throw new IllegalStateException("Centralangle has non valid value");
+		}
 	}
 
 	/**
@@ -64,7 +69,10 @@ public abstract class AbstractCoordinate implements Coordinate {
 	}
 
 	private void assertIsValidDistance(double cartesianDistance) {
-		assert cartesianDistance >= 0;
+		if (!(cartesianDistance >= 0)) {
+			throw new IllegalStateException("Distance cannot be <0");
+		}
+
 	}
 
 	/**
@@ -93,10 +101,6 @@ public abstract class AbstractCoordinate implements Coordinate {
 
 		return thetaIsEquals && phiIsEquals && radiusIsEquals;
 	}
-
-	protected abstract void assertClassInvariants();
-
-	protected abstract void assertIsValidCoordinate();
 
 	@Override
 	public boolean equals(Object obj) {

@@ -1,6 +1,7 @@
 package org.wahlzeit.model;
+
 /**
- * @invariant  0<= radius, 0<=theta <=180, 0<=phi<=180
+ * @invariant 0<= radius, 0<=theta <=180, 0<=phi<=180
  */
 public class SphericCoordinate extends AbstractCoordinate {
 
@@ -13,31 +14,21 @@ public class SphericCoordinate extends AbstractCoordinate {
 		this.phi = phi;
 		this.theta = theta;
 		this.radius = radius;
+		assertClassInvariants();
 	}
 
 	public double getPhi() {
 		return phi;
 	}
 
-	public void setPhi(double phi) {
-		this.phi = phi;
-	}
-
 	public double getTheta() {
 		return theta;
-	}
-
-	public void setTheta(double theta) {
-		this.theta = theta;
 	}
 
 	public double getRadius() {
 		return radius;
 	}
 
-	public void setRadius(double radius) {
-		this.radius = radius;
-	}
 	/**
 	 * @post return: ( x, y, z) !=Double.NaN
 	 */
@@ -69,25 +60,28 @@ public class SphericCoordinate extends AbstractCoordinate {
 
 	@Override
 	protected void assertClassInvariants() {
-
-		assert this.getRadius() >= 0;
-
-		assert this.getTheta() >= 0;
-		assert this.getTheta() <= 180;
-
-		assert this.getPhi() >= 0;
-		assert this.getPhi() <= 360;
+		if (!(this.getRadius() >= 0)) {
+			throw new IllegalStateException("Radius is <0");
+		}
+		if (!(this.getTheta() >= 0 && this.getTheta() <= 180)) {
+			throw new IllegalStateException("Theta is not in valid space");
+		}
+		if (!(this.getPhi() >= 0 && this.getPhi() <= 360)) {
+			throw new IllegalStateException("Phi is not in valid space");
+		}
 	}
 
 	@Override
 	protected void assertIsValidCoordinate() {
 
-		assert this.getRadius() >= 0;
-
-		assert this.getTheta() >= 0;
-		assert this.getTheta() <= 180;
-
-		assert this.getPhi() >= 0;
-		assert this.getPhi() <= 360;
+		if (!(this.getRadius() >= 0)) {
+			throw new IllegalStateException("Radius is <0");
+		}
+		if (!(this.getTheta() >= 0 && this.getTheta() <= 180)) {
+			throw new IllegalStateException("Theta is not in valid space");
+		}
+		if (!(this.getPhi() >= 0 && this.getPhi() <= 360)) {
+			throw new IllegalStateException("Phi is not in valid space");
+		}
 	}
 }
