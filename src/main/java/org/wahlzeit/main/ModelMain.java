@@ -42,7 +42,8 @@ import java.nio.file.Paths;
 import java.util.logging.Logger;
 
 /**
- * A single-threaded Main class with database connection. Can be used by tools that don't want to start a server.
+ * A single-threaded Main class with database connection. Can be used by tools
+ * that don't want to start a server.
  */
 public abstract class ModelMain extends AbstractMain {
 
@@ -56,7 +57,7 @@ public abstract class ModelMain extends AbstractMain {
 		log.info("AbstractMain.startUp completed");
 
 		log.config(LogBuilder.createSystemMessage().addAction("load image storage").toString());
-		//GcsAdapter.Builder gcsAdapterBuilder = new GcsAdapter.Builder();
+		// GcsAdapter.Builder gcsAdapterBuilder = new GcsAdapter.Builder();
 		ImageStorage.setInstance(new DatastoreAdapter());
 
 		log.config(LogBuilder.createSystemMessage().addAction("load globals").toString());
@@ -66,12 +67,16 @@ public abstract class ModelMain extends AbstractMain {
 		UserManager.getInstance().init();
 
 		log.config(LogBuilder.createSystemMessage().addAction("init PhotoFactory").toString());
-		SwimmingPhotoFactory.initialize();
 
-		log.config(LogBuilder.createSystemMessage().addAction("load Photos").toString());
-		SwimmingPhotoManager.getInstance().init();
+		try {
+			SwimmingPhotoFactory.initialize();
+		} catch (IllegalStateException e) {
+			log.info("Error: attempt to initalize SwimmingPhotoFactory twice");
+			e.printStackTrace();
+		}
+
+		PhotoManager.getInstance().init();
 	}
-
 
 	/**
 	 *
@@ -85,7 +90,7 @@ public abstract class ModelMain extends AbstractMain {
 	/**
 	 *
 	 */
-	public void saveAll() throws IOException{
+	public void saveAll() throws IOException {
 		PhotoCaseManager.getInstance().savePhotoCases();
 		SwimmingPhotoManager.getInstance().savePhotos();
 		UserManager.getInstance().saveClients();
@@ -111,7 +116,7 @@ public abstract class ModelMain extends AbstractMain {
 		log.info("Found " + photoFiles.length + " photo(s) in resource folder.");
 
 		for (File photo : photoFiles) {
-			//TODO: change to datastore/cloud storage
+			// TODO: change to datastore/cloud storage
 			try {
 				Image image = getImageFromFile(photo);
 				Photo newPhoto = photoManager.createPhoto(photo.getName(), image);
