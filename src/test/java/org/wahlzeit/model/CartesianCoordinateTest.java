@@ -1,12 +1,17 @@
 package org.wahlzeit.model;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.wahlzeit.model.CartesianCoordinateValues.X;
+import org.wahlzeit.model.CartesianCoordinateValues.Y;
+import org.wahlzeit.model.CartesianCoordinateValues.Z;
+import org.wahlzeit.model.SphericCoordinate2.Phi;
+import org.wahlzeit.model.SphericCoordinate2.Radius;
+import org.wahlzeit.model.SphericCoordinate2.Theta;
 
 public class CartesianCoordinateTest {
 	private final double decimalPlace = 1E-5;
@@ -18,11 +23,11 @@ public class CartesianCoordinateTest {
 
 	@Before
 	public void init() {
-		cartesianCoordinate1 = new CartesianCoordinate(10, 10, 10);
-		cartesianCoordinate2 = new CartesianCoordinate(5, 5, 5);
+		cartesianCoordinate1 = new CartesianCoordinate(new X(10), new Y(10), new Z(10));
+		cartesianCoordinate2 = new CartesianCoordinate(new X(5), new Y(5), new Z(5));
 
-		sphericCoordinate1 = new SphericCoordinate(Math.toRadians(10), Math.toRadians(10), 6360);
-		sphericCoordinate2 = new SphericCoordinate(Math.toRadians(50),Math.toRadians(50) , 6360);
+		sphericCoordinate1 = new SphericCoordinate(new Phi(Math.toRadians(10)), new Theta(Math.toRadians(10)), new Radius(6360));
+		sphericCoordinate2 =new SphericCoordinate(new Phi(Math.toRadians(50)), new Theta(Math.toRadians(50)), new Radius(6360));
 	}
 
 	@After

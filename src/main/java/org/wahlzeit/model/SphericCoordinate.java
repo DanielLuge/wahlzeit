@@ -1,31 +1,47 @@
 package org.wahlzeit.model;
 
+import java.util.HashMap;
+
+import org.wahlzeit.model.CartesianCoordinateValues.X;
+import org.wahlzeit.model.CartesianCoordinateValues.Y;
+import org.wahlzeit.model.CartesianCoordinateValues.Z;
+import org.wahlzeit.model.SphericCoordinate2.Phi;
+import org.wahlzeit.model.SphericCoordinate2.Radius;
+import org.wahlzeit.model.SphericCoordinate2.Theta;
+
 /**
  * @invariant 0<= radius, 0<=theta <=180, 0<=phi<=180
  */
 public class SphericCoordinate extends AbstractCoordinate {
-
-	private double phi;
-	private double theta;
-	private double radius;
-
-	public SphericCoordinate(double phi, double theta, double radius) {
+	static SphericCoordinate instance = null;
+	
+	private final Phi phi;
+	private final Theta theta;
+	private final Radius radius;
+	private HashMap instances = new HashMap();
+	
+	
+	public SphericCoordinate(Phi phi, Theta theta, Radius radius) {
 		super();
 		this.phi = phi;
 		this.theta = theta;
 		this.radius = radius;
 		assertClassInvariants();
 	}
+//	public getInstance(Phi phi, Theta theta, Radius radius) {
+//		instances.putIfAbsent(key, new SphericCoordinate(phi, theta, radius));
+//	}
+	
 
-	public double getPhi() {
+	public Phi getPhi() {
 		return phi;
 	}
 
-	public double getTheta() {
+	public Theta getTheta() {
 		return theta;
 	}
 
-	public double getRadius() {
+	public Radius getRadius() {
 		return radius;
 	}
 
@@ -44,11 +60,11 @@ public class SphericCoordinate extends AbstractCoordinate {
 	}
 
 	private CartesianCoordinate doTransformToCartesianCoordinate() {
-		double x = radius * Math.sin(theta) * Math.cos(phi);
-		double y = radius * Math.sin(theta) * Math.sin(phi);
-		double z = radius * Math.cos(theta);
+		double xValue = radius.getValue() * Math.sin(theta.getValue()) * Math.cos(phi.getValue());
+		double yValue = radius.getValue() * Math.sin(theta.getValue()) * Math.sin(phi.getValue());
+		double zValue = radius.getValue() * Math.cos(theta.getValue());
 
-		CartesianCoordinate coordinate = new CartesianCoordinate(x, y, z);
+		CartesianCoordinate coordinate = new CartesianCoordinate(new X(xValue), new Y(yValue), new Z(zValue));
 		return coordinate;
 	}
 
@@ -60,13 +76,13 @@ public class SphericCoordinate extends AbstractCoordinate {
 
 	@Override
 	protected void assertClassInvariants() {
-		if (!(this.getRadius() >= 0)) {
+		if (!(radius.getValue() >= 0)) {
 			throw new IllegalStateException("Radius is <0");
 		}
-		if (!(this.getTheta() >= 0 && this.getTheta() <= 180)) {
+		if (!(theta.getValue() >= 0 && theta.getValue() <= 180)) {
 			throw new IllegalStateException("Theta is not in valid space");
 		}
-		if (!(this.getPhi() >= 0 && this.getPhi() <= 360)) {
+		if (!(phi.getValue() >= 0 && phi.getValue() <= 360)) {
 			throw new IllegalStateException("Phi is not in valid space");
 		}
 	}
@@ -74,13 +90,13 @@ public class SphericCoordinate extends AbstractCoordinate {
 	@Override
 	protected void assertIsValidCoordinate() {
 
-		if (!(this.getRadius() >= 0)) {
+		if (!(radius.getValue() >= 0)) {
 			throw new IllegalStateException("Radius is <0");
 		}
-		if (!(this.getTheta() >= 0 && this.getTheta() <= 180)) {
+		if (!(theta.getValue() >= 0 && theta.getValue() <= 180)) {
 			throw new IllegalStateException("Theta is not in valid space");
 		}
-		if (!(this.getPhi() >= 0 && this.getPhi() <= 360)) {
+		if (!(phi.getValue() >= 0 && phi.getValue() <= 360)) {
 			throw new IllegalStateException("Phi is not in valid space");
 		}
 	}

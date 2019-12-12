@@ -1,26 +1,33 @@
 package org.wahlzeit.model;
 
+import org.wahlzeit.model.CartesianCoordinateValues.X;
+import org.wahlzeit.model.CartesianCoordinateValues.Y;
+import org.wahlzeit.model.CartesianCoordinateValues.Z;
+import org.wahlzeit.model.SphericCoordinate2.Phi;
+import org.wahlzeit.model.SphericCoordinate2.Radius;
+import org.wahlzeit.model.SphericCoordinate2.Theta;
+
 /**
  * @invariant (x, y, z) !=Double.NaN
  */
 public class CartesianCoordinate extends AbstractCoordinate {
-	private double x;
-	private double y;
-	private double z;
+	private final X x;
+	private final Y y;
+	private final Z z;
 
 	public double getX() {
-		return x;
+		return x.getValue();
 	}
 
 	public double getY() {
-		return y;
+		return y.getValue();
 	}
 
 	public double getZ() {
-		return z;
+		return z.getValue();
 	}
 
-	public CartesianCoordinate(double x, double y, double z) {
+	public CartesianCoordinate(X x, Y y, Z z) {
 		this.x = x;
 		this.y = y;
 		this.z = z;
@@ -49,9 +56,9 @@ public class CartesianCoordinate extends AbstractCoordinate {
 	}
 
 	private SphericCoordinate doTransformToSphericCoordinate() {
-		double radius = Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2) + Math.pow(z, 2));
-		double phi = Math.atan(y / x);
-		double theta = Math.acos(z / radius);
+		Radius radius = new Radius(Math.sqrt(Math.pow(x.getValue(), 2) + Math.pow(y.getValue(), 2) + Math.pow(z.getValue(), 2)));
+		Phi phi = new Phi (Math.atan(y.getValue() / x.getValue()));
+		Theta theta = new Theta (Math.acos(z.getValue() / (Math.sqrt(Math.pow(x.getValue(), 2) + Math.pow(y.getValue(), 2) + Math.pow(z.getValue(), 2)))));
 
 		return new SphericCoordinate(phi, theta, radius);
 	}
@@ -69,14 +76,14 @@ public class CartesianCoordinate extends AbstractCoordinate {
 	}
 
 	private void doAssertClassCoordinate(CartesianCoordinate coordinate) {
-		if (Double.isNaN(coordinate.x)) {
+		if (Double.isNaN(coordinate.x.getValue())) {
 			throw new IllegalStateException("x is not a number");
 		}
-		if (Double.isNaN(coordinate.y)) {
+		if (Double.isNaN(coordinate.y.getValue())) {
 
 			throw new IllegalStateException("x is not a number");
 		}
-		if (Double.isNaN(coordinate.z)) {
+		if (Double.isNaN(coordinate.z.getValue())) {
 
 			throw new IllegalStateException("x is not a number");
 		}
