@@ -23,11 +23,11 @@ public class CartesianCoordinateTest {
 
 	@Before
 	public void init() {
-		cartesianCoordinate1 = new CartesianCoordinate(new X(10), new Y(10), new Z(10));
-		cartesianCoordinate2 = new CartesianCoordinate(new X(5), new Y(5), new Z(5));
+		cartesianCoordinate1 = CartesianCoordinate.getInstance(new X(10), new Y(10), new Z(10));
+		cartesianCoordinate2 = CartesianCoordinate.getInstance(new X(5), new Y(5), new Z(5));
 
-		sphericCoordinate1 = new SphericCoordinate(new Phi(Math.toRadians(10)), new Theta(Math.toRadians(10)), new Radius(6360));
-		sphericCoordinate2 =new SphericCoordinate(new Phi(Math.toRadians(50)), new Theta(Math.toRadians(50)), new Radius(6360));
+		sphericCoordinate1 = SphericCoordinate.getInstance(new Phi(Math.toRadians(10)), new Theta(Math.toRadians(10)), new Radius(6360));
+		sphericCoordinate2 =SphericCoordinate.getInstance(new Phi(Math.toRadians(50)), new Theta(Math.toRadians(50)), new Radius(6360));
 	}
 
 	@After
@@ -116,5 +116,20 @@ public class CartesianCoordinateTest {
 	public void testCartesianEqualsInterchangeability() {
 		sphericCoordinate1 = cartesianCoordinate1.asSphericCoordinate();
 		assertTrue(sphericCoordinate1.equals(cartesianCoordinate1));
+	}
+	@Test
+	public void testCartesianCoordinateGetInstanceReturnsSameObjectWhenEqual() {
+		cartesianCoordinate1 = CartesianCoordinate.getInstance(new X(10), new Y(10), new Z(10));
+		cartesianCoordinate2 = CartesianCoordinate.getInstance(new X(10), new Y(10), new Z(10));
+		
+		
+	assertTrue(cartesianCoordinate1.hashCode() == cartesianCoordinate2.hashCode());
+	}
+	@Test
+	public void testCartesianCoordinateGetInstanceReturnsDifferentObjectWhenNotEqual() {
+		
+		cartesianCoordinate1 = CartesianCoordinate.getInstance(new X(10), new Y(10), new Z(10));
+		cartesianCoordinate2 = CartesianCoordinate.getInstance(new X(5), new Y(5), new Z(5));
+		assertTrue(cartesianCoordinate1.hashCode() != cartesianCoordinate2.hashCode());
 	}
 }

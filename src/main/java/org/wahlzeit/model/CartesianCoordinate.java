@@ -1,5 +1,9 @@
 package org.wahlzeit.model;
 
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
+
 import org.wahlzeit.model.CartesianCoordinateValues.X;
 import org.wahlzeit.model.CartesianCoordinateValues.Y;
 import org.wahlzeit.model.CartesianCoordinateValues.Z;
@@ -11,6 +15,9 @@ import org.wahlzeit.model.SphericCoordinate2.Theta;
  * @invariant (x, y, z) !=Double.NaN
  */
 public class CartesianCoordinate extends AbstractCoordinate {
+
+	private static Set<CartesianCoordinate> instances = new HashSet<CartesianCoordinate>();
+
 	private final X x;
 	private final Y y;
 	private final Z z;
@@ -27,13 +34,24 @@ public class CartesianCoordinate extends AbstractCoordinate {
 		return z.getValue();
 	}
 
-	public CartesianCoordinate(X x, Y y, Z z) {
+	private CartesianCoordinate(X x, Y y, Z z) {
 		this.x = x;
 		this.y = y;
 		this.z = z;
 		assertClassInvariants();
 	}
+	public static CartesianCoordinate getInstance(X x, Y y, Z z) {
 
+		CartesianCoordinate coordinate = new CartesianCoordinate(x, y, z);
+		for (Iterator<CartesianCoordinate> it = instances.iterator(); it.hasNext();) {
+			CartesianCoordinate f = it.next();
+			if (f.equals(coordinate))
+				
+			coordinate = f;
+		}
+		instances.add(coordinate);
+		return coordinate;
+	}
 	@Override
 	public CartesianCoordinate asCastesianCoordinate() {
 		assertClassInvariants();
@@ -60,7 +78,7 @@ public class CartesianCoordinate extends AbstractCoordinate {
 		Phi phi = new Phi (Math.atan(y.getValue() / x.getValue()));
 		Theta theta = new Theta (Math.acos(z.getValue() / (Math.sqrt(Math.pow(x.getValue(), 2) + Math.pow(y.getValue(), 2) + Math.pow(z.getValue(), 2)))));
 
-		return new SphericCoordinate(phi, theta, radius);
+		return SphericCoordinate.getInstance(phi, theta, radius);
 	}
 
 	@Override
