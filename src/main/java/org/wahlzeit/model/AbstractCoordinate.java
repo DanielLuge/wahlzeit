@@ -89,8 +89,6 @@ public abstract class AbstractCoordinate implements Coordinate {
 		return cartesianDistance;
 	}
 
-
-	
 	@Override
 	public boolean isEqual(Coordinate coordinate) {
 
@@ -103,6 +101,7 @@ public abstract class AbstractCoordinate implements Coordinate {
 
 		return thetaIsEquals && phiIsEquals && radiusIsEquals;
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 

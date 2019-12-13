@@ -40,18 +40,24 @@ public class CartesianCoordinate extends AbstractCoordinate {
 		this.z = z;
 		assertClassInvariants();
 	}
+
 	public static CartesianCoordinate getInstance(X x, Y y, Z z) {
 
 		CartesianCoordinate coordinate = new CartesianCoordinate(x, y, z);
 		for (Iterator<CartesianCoordinate> it = instances.iterator(); it.hasNext();) {
 			CartesianCoordinate f = it.next();
 			if (f.equals(coordinate))
-				
-			coordinate = f;
+
+				coordinate = f;
 		}
-		instances.add(coordinate);
+		synchronized (instances) {
+			instances.add(coordinate);
+		}
 		return coordinate;
 	}
+
+
+
 	@Override
 	public CartesianCoordinate asCastesianCoordinate() {
 		assertClassInvariants();
@@ -74,9 +80,11 @@ public class CartesianCoordinate extends AbstractCoordinate {
 	}
 
 	private SphericCoordinate doTransformToSphericCoordinate() {
-		Radius radius = new Radius(Math.sqrt(Math.pow(x.getValue(), 2) + Math.pow(y.getValue(), 2) + Math.pow(z.getValue(), 2)));
-		Phi phi = new Phi (Math.atan(y.getValue() / x.getValue()));
-		Theta theta = new Theta (Math.acos(z.getValue() / (Math.sqrt(Math.pow(x.getValue(), 2) + Math.pow(y.getValue(), 2) + Math.pow(z.getValue(), 2)))));
+		Radius radius = new Radius(
+				Math.sqrt(Math.pow(x.getValue(), 2) + Math.pow(y.getValue(), 2) + Math.pow(z.getValue(), 2)));
+		Phi phi = new Phi(Math.atan(y.getValue() / x.getValue()));
+		Theta theta = new Theta(Math.acos(z.getValue()
+				/ (Math.sqrt(Math.pow(x.getValue(), 2) + Math.pow(y.getValue(), 2) + Math.pow(z.getValue(), 2)))));
 
 		return SphericCoordinate.getInstance(phi, theta, radius);
 	}

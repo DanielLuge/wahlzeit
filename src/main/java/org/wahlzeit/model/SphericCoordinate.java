@@ -35,10 +35,12 @@ public class SphericCoordinate extends AbstractCoordinate {
 		for (Iterator<SphericCoordinate> it = instances.iterator(); it.hasNext();) {
 			SphericCoordinate f = it.next();
 			if (f.equals(coordinate))
-				
-			coordinate = f;
+
+				coordinate = f;
 		}
-		instances.add(coordinate);
+		synchronized (instances) {
+			instances.add(coordinate);
+		}
 		return coordinate;
 	}
 
