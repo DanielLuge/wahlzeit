@@ -10,10 +10,15 @@ import org.wahlzeit.model.CartesianCoordinateValues.Z;
 import org.wahlzeit.model.SphericCoordinateValues.Phi;
 import org.wahlzeit.model.SphericCoordinateValues.Radius;
 import org.wahlzeit.model.SphericCoordinateValues.Theta;
+import org.wahlzeit.utils.PatternInstance;
 
 /**
  * @invariant (x, y, z) !=Double.NaN
  */
+@PatternInstance(
+		patternName = "Immutable",
+		participants = {"CartesianCoordinate"}
+)
 public class CartesianCoordinate extends AbstractCoordinate {
 
 	private static Set<CartesianCoordinate> instances = new HashSet<CartesianCoordinate>();

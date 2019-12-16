@@ -1,8 +1,14 @@
 package org.wahlzeit.model;
 
+import org.wahlzeit.utils.PatternInstance;
+
 /**
  * @invariant 0<= radius, 0<=theta <=180, 0<=phi<=180 || (x, y, z) !=Double.NaN
  */
+@PatternInstance(
+		patternName = "Factory Method",
+		participants = {"CartesianCoordinate", "SphericCoordinate"}
+)
 public abstract class AbstractCoordinate implements Coordinate {
 	private final double decimalPlace = 1E-5;
 
