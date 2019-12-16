@@ -10,10 +10,15 @@ import org.wahlzeit.model.CartesianCoordinateValues.Z;
 import org.wahlzeit.model.SphericCoordinate2.Phi;
 import org.wahlzeit.model.SphericCoordinate2.Radius;
 import org.wahlzeit.model.SphericCoordinate2.Theta;
+import org.wahlzeit.utils.PatternInstance;
 
 /**
  * @invariant 0<= radius, 0<=theta <=180, 0<=phi<=180
  */
+@PatternInstance(
+		patternName = "Immutable",
+		participants = {"SphericCoordinate"}
+)
 public class SphericCoordinate extends AbstractCoordinate {
 
 	private final Phi phi;
