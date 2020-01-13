@@ -6,7 +6,7 @@ import org.wahlzeit.utils.PatternInstance;
  * @invariant 0<= radius, 0<=theta <=180, 0<=phi<=180 || (x, y, z) !=Double.NaN
  */
 @PatternInstance(
-		patternName = "Factory Method",
+		patternName = "Object Value Pattern",
 		participants = {"CartesianCoordinate", "SphericCoordinate"}
 )
 public abstract class AbstractCoordinate implements Coordinate {
@@ -42,11 +42,11 @@ public abstract class AbstractCoordinate implements Coordinate {
 	 */
 	protected double doGetCentralAngle(SphericCoordinate caller, SphericCoordinate call) {
 
-		double sinTheta1 = Math.sin(caller.getTheta().getValue());
-		double sinTheta2 = Math.sin(call.getTheta().getValue());
-		double cosTheta1 = Math.cos(caller.getTheta().getValue());
-		double cosTheta2 = Math.cos(call.getTheta().getValue());
-		double cosPhi = Math.cos(caller.getPhi().getValue() - call.getPhi().getValue());
+		double sinTheta1 = Math.sin(caller.getTheta());
+		double sinTheta2 = Math.sin(call.getTheta());
+		double cosTheta1 = Math.cos(caller.getTheta());
+		double cosTheta2 = Math.cos(call.getTheta());
+		double cosPhi = Math.cos(caller.getPhi() - call.getPhi());
 		// for distance the central Angle must be multiplied by the earth radius
 		double centralAngle = Math.acos(sinTheta1 * sinTheta2 + cosTheta1 * cosTheta2 * cosPhi);
 		return centralAngle;
@@ -101,9 +101,9 @@ public abstract class AbstractCoordinate implements Coordinate {
 		SphericCoordinate sphericCoordinateCaller = this.asSphericCoordinate();
 		SphericCoordinate sphericCoordinateCall = coordinate.asSphericCoordinate();
 
-		boolean thetaIsEquals = sphericCoordinateCaller.getTheta().equals(sphericCoordinateCall.getTheta());
-		boolean phiIsEquals = sphericCoordinateCaller.getPhi().equals(sphericCoordinateCall.getPhi());
-		boolean radiusIsEquals = sphericCoordinateCaller.getRadius().equals(sphericCoordinateCall.getRadius());
+		boolean thetaIsEquals = compNumbers(sphericCoordinateCaller.getTheta(),(sphericCoordinateCall.getTheta()));
+		boolean phiIsEquals = compNumbers(sphericCoordinateCaller.getPhi() ,(sphericCoordinateCall.getPhi()));
+		boolean radiusIsEquals = compNumbers(sphericCoordinateCaller.getRadius() , (sphericCoordinateCall.getRadius()));
 
 		return thetaIsEquals && phiIsEquals && radiusIsEquals;
 	}
