@@ -1,21 +1,18 @@
-package org.wahlzeit.model.SphericCoordinate2;
+package org.wahlzeit.model.SphericCoordinateValues;
 
-import java.util.HashMap;
-
-public class Theta {
+public class Phi {
 	private final double decimalPlace = 1E-5;
 
 	final double value;
-	private static HashMap instances;
-	public Theta(double theta) {
-		super();
-		this.value = theta;
-	}
 
 	public double getValue() {
 		return value;
 	}
-
+	public Phi(double phi) {
+		super();
+		this.value = phi;
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -34,7 +31,7 @@ public class Theta {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Theta other = (Theta) obj;
+		Phi other = (Phi) obj;
 		if (!compNumbers(value, other.value))
 			return false;
 		return true;

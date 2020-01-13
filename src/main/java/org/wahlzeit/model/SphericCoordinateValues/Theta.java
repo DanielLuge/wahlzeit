@@ -1,13 +1,15 @@
-package org.wahlzeit.model.SphericCoordinate2;
+package org.wahlzeit.model.SphericCoordinateValues;
 
-public class Radius {
+import java.util.HashMap;
+
+public class Theta {
 	private final double decimalPlace = 1E-5;
 
 	final double value;
-
-	public Radius(double radius) {
+	private static HashMap instances;
+	public Theta(double theta) {
 		super();
-		this.value = radius;
+		this.value = theta;
 	}
 
 	public double getValue() {
@@ -32,7 +34,7 @@ public class Radius {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Radius other = (Radius) obj;
+		Theta other = (Theta) obj;
 		if (!compNumbers(value, other.value))
 			return false;
 		return true;
@@ -40,5 +42,6 @@ public class Radius {
 	protected boolean compNumbers(double x, double y) {
 		return Math.abs(x - y) < decimalPlace;
 	}
+
 
 }

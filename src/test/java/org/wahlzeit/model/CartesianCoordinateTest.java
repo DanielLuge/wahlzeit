@@ -9,9 +9,9 @@ import org.junit.Test;
 import org.wahlzeit.model.CartesianCoordinateValues.X;
 import org.wahlzeit.model.CartesianCoordinateValues.Y;
 import org.wahlzeit.model.CartesianCoordinateValues.Z;
-import org.wahlzeit.model.SphericCoordinate2.Phi;
-import org.wahlzeit.model.SphericCoordinate2.Radius;
-import org.wahlzeit.model.SphericCoordinate2.Theta;
+import org.wahlzeit.model.SphericCoordinateValues.Phi;
+import org.wahlzeit.model.SphericCoordinateValues.Radius;
+import org.wahlzeit.model.SphericCoordinateValues.Theta;
 
 public class CartesianCoordinateTest {
 	private final double decimalPlace = 1E-5;
