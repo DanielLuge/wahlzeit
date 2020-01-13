@@ -4,24 +4,23 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
-import org.wahlzeit.model.CartesianCoordinateValues.X;
-import org.wahlzeit.model.CartesianCoordinateValues.Y;
-import org.wahlzeit.model.CartesianCoordinateValues.Z;
-import org.wahlzeit.model.SphericCoordinateValues.Phi;
-import org.wahlzeit.model.SphericCoordinateValues.Radius;
-import org.wahlzeit.model.SphericCoordinateValues.Theta;
+import org.wahlzeit.utils.PatternInstance;
 
 /**
  * @invariant 0<= radius, 0<=theta <=180, 0<=phi<=180
  */
+@PatternInstance(
+		patternName = "Immutable",
+		participants = {"SphericCoordinate"}
+)
 public class SphericCoordinate extends AbstractCoordinate {
 
-	private final Phi phi;
-	private final Theta theta;
-	private final Radius radius;
+	private final double phi;
+	private final double theta;
+	private final double radius;
 	private static Set<SphericCoordinate> instances = new HashSet<SphericCoordinate>();
 
-	private SphericCoordinate(Phi phi, Theta theta, Radius radius) {
+	private SphericCoordinate(double phi, double theta, double radius) {
 		super();
 		this.phi = phi;
 		this.theta = theta;
@@ -29,7 +28,7 @@ public class SphericCoordinate extends AbstractCoordinate {
 		assertClassInvariants();
 	}
 
-	public static SphericCoordinate getInstance(Phi phi, Theta theta, Radius radius) {
+	public static SphericCoordinate getInstance(double phi, double theta, double radius) {
 
 		SphericCoordinate coordinate = new SphericCoordinate(phi, theta, radius);
 		for (Iterator<SphericCoordinate> it = instances.iterator(); it.hasNext();) {
@@ -44,15 +43,15 @@ public class SphericCoordinate extends AbstractCoordinate {
 		return coordinate;
 	}
 
-	public Phi getPhi() {
+	public double getPhi() {
 		return phi;
 	}
 
-	public Theta getTheta() {
+	public double getTheta() {
 		return theta;
 	}
 
-	public Radius getRadius() {
+	public double getRadius() {
 		return radius;
 	}
 
@@ -71,11 +70,10 @@ public class SphericCoordinate extends AbstractCoordinate {
 	}
 
 	private CartesianCoordinate doTransformToCartesianCoordinate() {
-		double xValue = radius.getValue() * Math.sin(theta.getValue()) * Math.cos(phi.getValue());
-		double yValue = radius.getValue() * Math.sin(theta.getValue()) * Math.sin(phi.getValue());
-		double zValue = radius.getValue() * Math.cos(theta.getValue());
-
-		CartesianCoordinate coordinate = CartesianCoordinate.getInstance(new X(xValue), new Y(yValue), new Z(zValue));
+		double x = radius * Math.sin(theta) * Math.cos(phi);
+		double y = radius * Math.sin(theta) * Math.sin(phi);
+		double z = radius * Math.cos(theta);
+		CartesianCoordinate coordinate = CartesianCoordinate.getInstance(x, y, z);
 		return coordinate;
 	}
 
@@ -87,13 +85,13 @@ public class SphericCoordinate extends AbstractCoordinate {
 
 	@Override
 	protected void assertClassInvariants() {
-		if (!(radius.getValue() >= 0)) {
+		if (!(radius >= 0)) {
 			throw new IllegalStateException("Radius is <0");
 		}
-		if (!(theta.getValue() >= 0 && theta.getValue() <= 180)) {
+		if (!(theta >= 0 && theta <= 180)) {
 			throw new IllegalStateException("Theta is not in valid space");
 		}
-		if (!(phi.getValue() >= 0 && phi.getValue() <= 360)) {
+		if (!(phi >= 0 && phi <= 360)) {
 			throw new IllegalStateException("Phi is not in valid space");
 		}
 	}
@@ -101,13 +99,13 @@ public class SphericCoordinate extends AbstractCoordinate {
 	@Override
 	protected void assertIsValidCoordinate() {
 
-		if (!(radius.getValue() >= 0)) {
+		if (!(radius >= 0)) {
 			throw new IllegalStateException("Radius is <0");
 		}
-		if (!(theta.getValue() >= 0 && theta.getValue() <= 180)) {
+		if (!(theta >= 0 && theta <= 180)) {
 			throw new IllegalStateException("Theta is not in valid space");
 		}
-		if (!(phi.getValue() >= 0 && phi.getValue() <= 360)) {
+		if (!(phi >= 0 && phi <= 360)) {
 			throw new IllegalStateException("Phi is not in valid space");
 		}
 	}

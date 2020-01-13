@@ -3,7 +3,11 @@ package org.wahlzeit.model;
 import java.util.logging.Logger;
 
 import org.wahlzeit.services.LogBuilder;
-
+import org.wahlzeit.utils.PatternInstance;
+@PatternInstance(
+		patternName = "Singleton",
+		participants = {"SwimmingPhotoFactory"}
+)
 public class SwimmingPhotoFactory extends PhotoFactory {
 	private static SwimmingPhotoFactory instance = null;
 	private static final Logger log = Logger.getLogger(SwimmingPhotoFactory.class.getName());

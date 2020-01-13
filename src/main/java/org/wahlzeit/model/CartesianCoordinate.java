@@ -7,6 +7,7 @@ import java.util.Set;
 import org.wahlzeit.model.CartesianCoordinateValues.X;
 import org.wahlzeit.model.CartesianCoordinateValues.Y;
 import org.wahlzeit.model.CartesianCoordinateValues.Z;
+import org.wahlzeit.utils.PatternInstance;
 import org.wahlzeit.model.SphericCoordinateValues.Phi;
 import org.wahlzeit.model.SphericCoordinateValues.Radius;
 import org.wahlzeit.model.SphericCoordinateValues.Theta;
@@ -14,34 +15,35 @@ import org.wahlzeit.model.SphericCoordinateValues.Theta;
 /**
  * @invariant (x, y, z) !=Double.NaN
  */
+@PatternInstance(patternName = "Immutable", participants = { "CartesianCoordinate" })
 public class CartesianCoordinate extends AbstractCoordinate {
 
 	private static Set<CartesianCoordinate> instances = new HashSet<CartesianCoordinate>();
 
-	private final X x;
-	private final Y y;
-	private final Z z;
+	private final double x;
+	private final double y;
+	private final double z;
 
 	public double getX() {
-		return x.getValue();
+		return x;
 	}
 
 	public double getY() {
-		return y.getValue();
+		return y;
 	}
 
 	public double getZ() {
-		return z.getValue();
+		return z;
 	}
 
-	private CartesianCoordinate(X x, Y y, Z z) {
+	private CartesianCoordinate(double x, double y, double z) {
 		this.x = x;
 		this.y = y;
 		this.z = z;
 		assertClassInvariants();
 	}
 
-	public static CartesianCoordinate getInstance(X x, Y y, Z z) {
+	public static CartesianCoordinate getInstance(double x, double y, double z) {
 
 		CartesianCoordinate coordinate = new CartesianCoordinate(x, y, z);
 		for (Iterator<CartesianCoordinate> it = instances.iterator(); it.hasNext();) {
@@ -55,8 +57,6 @@ public class CartesianCoordinate extends AbstractCoordinate {
 		}
 		return coordinate;
 	}
-
-
 
 	@Override
 	public CartesianCoordinate asCastesianCoordinate() {
@@ -80,11 +80,9 @@ public class CartesianCoordinate extends AbstractCoordinate {
 	}
 
 	private SphericCoordinate doTransformToSphericCoordinate() {
-		Radius radius = new Radius(
-				Math.sqrt(Math.pow(x.getValue(), 2) + Math.pow(y.getValue(), 2) + Math.pow(z.getValue(), 2)));
-		Phi phi = new Phi(Math.atan(y.getValue() / x.getValue()));
-		Theta theta = new Theta(Math.acos(z.getValue()
-				/ (Math.sqrt(Math.pow(x.getValue(), 2) + Math.pow(y.getValue(), 2) + Math.pow(z.getValue(), 2)))));
+		double radius = Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2) + Math.pow(z, 2));
+		double phi = Math.atan(y / x);
+		double theta = Math.acos(z / (Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2) + Math.pow(z, 2))));
 
 		return SphericCoordinate.getInstance(phi, theta, radius);
 	}
@@ -102,14 +100,14 @@ public class CartesianCoordinate extends AbstractCoordinate {
 	}
 
 	private void doAssertClassCoordinate(CartesianCoordinate coordinate) {
-		if (Double.isNaN(coordinate.x.getValue())) {
+		if (Double.isNaN(coordinate.x)) {
 			throw new IllegalStateException("x is not a number");
 		}
-		if (Double.isNaN(coordinate.y.getValue())) {
+		if (Double.isNaN(coordinate.y)) {
 
 			throw new IllegalStateException("x is not a number");
 		}
-		if (Double.isNaN(coordinate.z.getValue())) {
+		if (Double.isNaN(coordinate.z)) {
 
 			throw new IllegalStateException("x is not a number");
 		}

@@ -23,12 +23,10 @@ public class SphericCoordinateTest {
 
 	@Before
 	public void init() {
-		cartesianCoordinate1 = CartesianCoordinate.getInstance(new X(10), new Y(10), new Z(10));
-		cartesianCoordinate2 = CartesianCoordinate.getInstance(new X(5), new Y(5), new Z(5));
-		sphericCoordinate1 = SphericCoordinate.getInstance(new Phi(Math.toRadians(45)), new Theta(Math.toRadians(45)),
-				new Radius(6360));
-		sphericCoordinate2 = SphericCoordinate.getInstance(new Phi(Math.toRadians(46)), new Theta(Math.toRadians(46)),
-				new Radius(6360));
+		cartesianCoordinate1 = CartesianCoordinate.getInstance(10, 10, 10);
+		cartesianCoordinate2 = CartesianCoordinate.getInstance(5, 5, 5);
+		sphericCoordinate1 = SphericCoordinate.getInstance(Math.toRadians(45), Math.toRadians(45), 6360);
+		sphericCoordinate2 = SphericCoordinate.getInstance(Math.toRadians(46), Math.toRadians(46), 6360);
 	}
 
 	@After
@@ -50,10 +48,10 @@ public class SphericCoordinateTest {
 
 	@Test
 	public void testGreatCentralAngle() {
-		sphericCoordinate1 = SphericCoordinate.getInstance(new Phi(Math.toRadians(10)), new Theta(Math.toRadians(10)),
-				new Radius(6360));
-		sphericCoordinate2 = SphericCoordinate.getInstance(new Phi(Math.toRadians(50)), new Theta(Math.toRadians(50)),
-				new Radius(6360));
+		sphericCoordinate1 = SphericCoordinate.getInstance(Math.toRadians(10), Math.toRadians(10),
+			6360);
+		sphericCoordinate2 = SphericCoordinate.getInstance(Math.toRadians(50), Math.toRadians(50),
+				6360);
 
 		double centralAngle = sphericCoordinate1.getCentralAngle(sphericCoordinate2);
 		assertTrue(compNumbers(centralAngle, 0.904669));
@@ -82,21 +80,22 @@ public class SphericCoordinateTest {
 		CartesianCoordinate c = sphericCoordinate1.asCastesianCoordinate();
 		assertTrue(sphericCoordinate1.equals(c));
 	}
-	
+
 	@Test
 	public void testSphericCoordinateGetInstanceReturnsSameObjectWhenEqual() {
-	sphericCoordinate1 = SphericCoordinate.getInstance(new Phi(Math.toRadians(50)), new Theta(Math.toRadians(50)),
-			new Radius(6360));
-	sphericCoordinate2 = SphericCoordinate.getInstance(new Phi(Math.toRadians(50)), new Theta(Math.toRadians(50)),
-			new Radius(6360));
-	assertTrue(sphericCoordinate1.hashCode() == sphericCoordinate2.hashCode());
+		sphericCoordinate1 = SphericCoordinate.getInstance(Math.toRadians(50), Math.toRadians(50),
+				6360);
+		sphericCoordinate2 = SphericCoordinate.getInstance(Math.toRadians(50), Math.toRadians(50),
+				6360);
+		assertTrue(sphericCoordinate1.hashCode() == sphericCoordinate2.hashCode());
 	}
+
 	@Test
 	public void testSphericCoordinateGetInstanceReturnsDifferentObjectWhenNotEqual() {
-	sphericCoordinate1 = SphericCoordinate.getInstance(new Phi(Math.toRadians(50)), new Theta(Math.toRadians(50)),
-			new Radius(6360));
-	sphericCoordinate2 = SphericCoordinate.getInstance(new Phi(Math.toRadians(20)), new Theta(Math.toRadians(50)),
-			new Radius(6360));
-	assertTrue(sphericCoordinate1.hashCode() != sphericCoordinate2.hashCode());
+		sphericCoordinate1 = SphericCoordinate.getInstance(Math.toRadians(50), Math.toRadians(50),
+				6360);
+		sphericCoordinate2 = SphericCoordinate.getInstance(Math.toRadians(20), Math.toRadians(50),
+				6360);
+		assertTrue(sphericCoordinate1.hashCode() != sphericCoordinate2.hashCode());
 	}
 }
