@@ -23,11 +23,11 @@ public class CartesianCoordinateTest {
 
 	@Before
 	public void init() {
-		cartesianCoordinate1 = CartesianCoordinate.getInstance(new X(10), new Y(10), new Z(10));
-		cartesianCoordinate2 = CartesianCoordinate.getInstance(new X(5), new Y(5), new Z(5));
+		cartesianCoordinate1 = CartesianCoordinate.getInstance(10, 10, 10);
+		cartesianCoordinate2 = CartesianCoordinate.getInstance(5, 5, 5);
 
-		sphericCoordinate1 = SphericCoordinate.getInstance(new Phi(Math.toRadians(10)), new Theta(Math.toRadians(10)), new Radius(6360));
-		sphericCoordinate2 =SphericCoordinate.getInstance(new Phi(Math.toRadians(50)), new Theta(Math.toRadians(50)), new Radius(6360));
+		sphericCoordinate1 = SphericCoordinate.getInstance(Math.toRadians(10), Math.toRadians(10), 6360);
+		sphericCoordinate2 =SphericCoordinate.getInstance(Math.toRadians(50), Math.toRadians(50), 6360);
 	}
 
 	@After
@@ -119,8 +119,8 @@ public class CartesianCoordinateTest {
 	}
 	@Test
 	public void testCartesianCoordinateGetInstanceReturnsSameObjectWhenEqual() {
-		cartesianCoordinate1 = CartesianCoordinate.getInstance(new X(10), new Y(10), new Z(10));
-		cartesianCoordinate2 = CartesianCoordinate.getInstance(new X(10), new Y(10), new Z(10));
+		cartesianCoordinate1 = CartesianCoordinate.getInstance(10, 10, 10);
+		cartesianCoordinate2 = CartesianCoordinate.getInstance(10, 10, 10);
 		
 		
 	assertTrue(cartesianCoordinate1.hashCode() == cartesianCoordinate2.hashCode());
@@ -128,8 +128,8 @@ public class CartesianCoordinateTest {
 	@Test
 	public void testCartesianCoordinateGetInstanceReturnsDifferentObjectWhenNotEqual() {
 		
-		cartesianCoordinate1 = CartesianCoordinate.getInstance(new X(10), new Y(10), new Z(10));
-		cartesianCoordinate2 = CartesianCoordinate.getInstance(new X(5), new Y(5), new Z(5));
+		cartesianCoordinate1 = CartesianCoordinate.getInstance(10, 10, 10);
+		cartesianCoordinate2 = CartesianCoordinate.getInstance(5, 5, 5);
 		assertTrue(cartesianCoordinate1.hashCode() != cartesianCoordinate2.hashCode());
 	}
 }
