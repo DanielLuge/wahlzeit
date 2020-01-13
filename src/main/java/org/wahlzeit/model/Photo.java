@@ -42,6 +42,7 @@ import java.util.Map;
 		patternName = "Abstract Factory",
 		participants = {"Photo", "SwimmingPhoto"}
 )
+@Entity
 public class Photo extends DataObject {
 
 	/**
