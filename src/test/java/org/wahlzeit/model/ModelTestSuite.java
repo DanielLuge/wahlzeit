@@ -16,7 +16,9 @@ import org.junit.runners.Suite;
 		TagsTest.class,
 		UserStatusTest.class,
 		ValueTest.class,
-		SwimmingPhotoFactoryTest.class
+		SwimmingPhotoFactoryTest.class,
+		SwimmingManagerTest.class,
+		SwimmerTypeTest.class
 
 })
 public class ModelTestSuite {
