@@ -47,6 +47,17 @@ public class SwimmingPhotoFactoryTest {
 		assertNotNull(sp);
 		assertEquals(1234, sp.id.value);
 	}
+	@Test
+	public void testCreateSwimmingPhotoWithSwimmerType() {
+		SwimmingPhotoFactory spFactory = SwimmingPhotoFactory.getInstance();
+		SwimmerManager swimmerManager = SwimmerManager.getInstance();
+
+		Swimmer swimmer = swimmerManager.createSwimmer("SwimmerType", 50, "Erlangen Schwimmabteilung");
+		SwimmingPhoto sp = spFactory.createPhoto("freestyle", "Erlangen", swimmer);
+		assertNotNull(sp);
+		assertEquals("Erlangen Schwimmabteilung", sp.swimmer.getClub());
+
+	}
 
 	@Test
 	public void testSavingSwimmingPhotoInCache() {

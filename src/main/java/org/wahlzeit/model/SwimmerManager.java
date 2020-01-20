@@ -18,13 +18,13 @@ public class SwimmerManager {
 		return instance;
 	}
 
-	public Swimmer createSwimmer(String typeName, int id, String club) {
+	public Swimmer createSwimmer(String typeName, long id, String club) {
 		assertIsValidSwimmer(typeName, id, club);
 
 		SwimmerType swimmerType = getSwimmerType(typeName);
 
 		Swimmer result = swimmerType.createInstance(id, club);
-		swimmers.put(result.getId(), result);
+		swimmers.put((int)result.getId(), result);
 		return result;
 
 	}
@@ -40,7 +40,7 @@ public class SwimmerManager {
 		return swimmerType;
 	}
 
-	private void assertIsValidSwimmer(String typeName, int id, String club) {
+	private void assertIsValidSwimmer(String typeName, long id, String club) {
 		if ((typeName.isEmpty())) {
 			throw new IllegalStateException("typeName is empty");
 		}

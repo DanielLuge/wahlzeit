@@ -10,6 +10,8 @@ import org.wahlzeit.model.Guest;
 import org.wahlzeit.model.Moderator;
 import org.wahlzeit.model.Photo;
 import org.wahlzeit.model.PhotoCase;
+import org.wahlzeit.model.Swimmer;
+import org.wahlzeit.model.SwimmerType;
 import org.wahlzeit.model.SwimmingPhoto;
 import org.wahlzeit.model.Tag;
 import org.wahlzeit.model.User;
@@ -37,6 +39,8 @@ public class OfyService {
 		factory().register(PhotoCase.class);
 		factory().register(ImageWrapper.class);
 		factory().register(SwimmingPhoto.class);
+//		factory().register(Swimmer.class);
+//		factory().register(SwimmerType.class);
 
 	}
 

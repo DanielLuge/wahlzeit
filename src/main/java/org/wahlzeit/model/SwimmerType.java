@@ -1,10 +1,14 @@
 package org.wahlzeit.model;
+import com.googlecode.objectify.annotation.Entity;
+import com.googlecode.objectify.annotation.Id;
 
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
 public class SwimmerType {
+	@Id
+	Long idLong;
 	private String name;
 	private Swimmer swimmer;
 
@@ -23,7 +27,7 @@ public class SwimmerType {
 		this.name = typeName;
 	}
 
-	public Swimmer createInstance(int id, String club) {
+	public Swimmer createInstance(long id, String club) {
 		return new Swimmer(this, id, club);
 	}
 

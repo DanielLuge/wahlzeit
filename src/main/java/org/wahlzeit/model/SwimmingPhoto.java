@@ -1,12 +1,16 @@
 package org.wahlzeit.model;
 
 import com.googlecode.objectify.annotation.Entity;
+import com.googlecode.objectify.annotation.Ignore;
 
 @Entity
 public class SwimmingPhoto extends Photo {
 
 	public String swimmStroke;
 	public String swimmingPoolName;
+	@Ignore
+	public Swimmer swimmer;
+	
 
 	/**
 	 * @methodtype constructor
@@ -24,6 +28,22 @@ public class SwimmingPhoto extends Photo {
 		this.swimmStroke = swimStroke;
 		this.swimmingPoolName = swimmmingPoolName;
 	}
+	public SwimmingPhoto(String swimStroke, String swimmmingPoolName, Swimmer swimmer) throws IllegalArgumentException {
+		super();
+		
+		assertIsValidString(swimStroke);
+		assertIsValidString(swimmmingPoolName);
+		this.swimmStroke = swimStroke;
+		this.swimmingPoolName = swimmmingPoolName;
+		this.swimmer = swimmer;
+	}
+	public Swimmer getSwimmer() {
+		return swimmer;
+	}
+	public void setSwimmer(Swimmer swimmer) {
+		this.swimmer = swimmer;
+	}
+
 
 	public String getSwimmStroke() {
 		return swimmStroke;

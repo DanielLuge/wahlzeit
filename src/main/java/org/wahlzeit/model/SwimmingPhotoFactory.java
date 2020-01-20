@@ -28,8 +28,8 @@ public class SwimmingPhotoFactory extends PhotoFactory {
 		return new SwimmingPhoto(id);
 	}
 
-	public SwimmingPhoto createPhoto(String swimStroke, String swimmingPoolName) {
-		return new SwimmingPhoto(swimStroke, swimmingPoolName);
+	public SwimmingPhoto createPhoto(String swimStroke, String swimmingPoolName, Swimmer swimmer) {
+		return new SwimmingPhoto(swimStroke, swimmingPoolName,  swimmer);
 	}
 
 	protected SwimmingPhotoFactory() {

@@ -1,12 +1,17 @@
 package org.wahlzeit.model;
+import com.googlecode.objectify.annotation.Entity;
+import com.googlecode.objectify.annotation.Id;
 
+
+
+@Entity
 public class Swimmer {
 	protected SwimmerType swimmerType = null;
-
-	private int id;
+	@Id
+	Long id;
 	private String club;
 
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 
@@ -22,7 +27,7 @@ public class Swimmer {
 		this.swimmerType = swimmerType;
 	}
 
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 
@@ -30,7 +35,7 @@ public class Swimmer {
 		this.club = club;
 	}
 
-	public Swimmer(SwimmerType swimmerType, int id, String club) {
+	public Swimmer(SwimmerType swimmerType, long id, String club) {
 		this.swimmerType = swimmerType;
 		this.id = id;
 		this.club = club;
